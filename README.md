@@ -148,6 +148,43 @@ The rules below may be removed. Don't worry, they will be configured in the next
 }
 ```
 
+To avoid import erros
+
+<img align="center" alt="import errors" style="max-width: 680px" src="docs/import-errors.png" /><br>
+
+[...] install the following package
+
+```bash
+yarn add -D eslint-import-resolver-typescript
+```
+
+[...] and apply these configurations in the `eslintrc.json` file:
+
+```diff
+{
+  "rules": {
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "no-use-before-define": "off",
+    "import/prefer-default-export": "off",
++   "import/extensions": [
++     "error",
++     "ignorePackages",
++     { "ts": "never", "tsx": "never" }
++   ]
+  },
++ "settings": {
++   "import/resolver": {
++     "typescript": {}
++   }
++ }
+}
+```
+
 ## ESLint - Airbnb Configuration
 
 Airbnb created the most popular style guide for eslint, it is widely used in React projects because it avoids accidental bugs, bad practices, and keeps your code clean and standardized. This means the code will be easier to maintain over time.
@@ -218,7 +255,8 @@ Edit your `.eslintrc.json` file as shown below:
 +      1,
 +      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
 +    ],
-+    "no-use-before-define": "off"
++    "no-use-before-define": "off",
++    "import/prefer-default-export" "off"
   }
 }
 ```
@@ -226,6 +264,7 @@ Edit your `.eslintrc.json` file as shown below:
 - `react/react-in-jsx-scope`: currently it's no longer necessary to import React in jsx/tsx scope, so disable this rule to avoid unnecessary imports.
 - `react/jsx-filename-extension`: this configuration contains a list of extensions used for react files.
 - `no-use-before-define`: disabling this rule will allow the use of variables and functions before they are declared.
+- `import/prefer-default-export`: disabling this rule makes the use of default export optional.
 
 To finish eslint configuration add the following lines in your `package.json` file:
 
