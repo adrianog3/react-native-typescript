@@ -226,3 +226,81 @@ Edit your `.eslintrc.json` file as shown below:
 - `react/react-in-jsx-scope`: currently it's no longer necessary to import React in jsx/tsx scope, so disable this rule to avoid unnecessary imports.
 - `react/jsx-filename-extension`: this configuration contains a list of extensions used for react files.
 - `no-use-before-define`: disabling this rule will allow the use of variables and functions before they are declared.
+
+## Prettier
+
+The prettier is a text formatter for javascript and typescript files.
+
+To install prettier in your project run the following command:
+
+```bash
+yarn add prettier -D
+```
+
+To enable prettier rules into ESLint rules install the following dependency:
+
+```bash
+yarn add eslint-plugin-prettier -D
+```
+
+Then, in `.eslintrc.json` file, put these lines:
+
+```diff
+{
+  "plugins": [
+    "react",
+    "@typescript-eslint",
++   "prettier"
+  ],
+  "rules": {
++   "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "no-use-before-define": "off"
+  }
+}
+```
+
+> For more details see the [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) repository.
+
+To prevent the prettier and eslint rules from conflicting, it's necessary to install the following plugin:
+
+```bash
+yarn add eslint-config-prettier -D
+```
+
+Then, in `.eslintrc.json` file, put these lines:
+
+```diff
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb",
+    "airbnb/hooks",
++   "plugin:prettier/recommended"
+  ]
+}
+```
+
+> For more details see the [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) repository.
+
+> If you are using [VSCode](https://code.visualstudio.com/), is necessary install the [Prettier Plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+
+The next step is create a `.prettierrc.json` file inside root folder:
+
+```json
+{
+  "semi": false,
+  "trailingComma": "all",
+  "singleQuote": true,
+  "printWidth": 85,
+  "tabWidth": 2
+}
+```
+
+> Change the settings according to your need. See the [prettier options](https://prettier.io/docs/en/options.html) for more details.
