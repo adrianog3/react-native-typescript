@@ -185,7 +185,7 @@ Install [eslint-config-airbnb-typescript](https://github.com/iamturns/eslint-con
 yarn add -D eslint-config-airbnb-typescript
 ```
 
-The last step is to add the following lines in the `.eslintrc` file:
+The next step is to add the following lines in the `.eslintrc` file:
 
 ```diff
 {
@@ -226,6 +226,23 @@ Edit your `.eslintrc.json` file as shown below:
 - `react/react-in-jsx-scope`: currently it's no longer necessary to import React in jsx/tsx scope, so disable this rule to avoid unnecessary imports.
 - `react/jsx-filename-extension`: this configuration contains a list of extensions used for react files.
 - `no-use-before-define`: disabling this rule will allow the use of variables and functions before they are declared.
+
+To finish eslint configuration add the following lines in your `package.json` file:
+
+```diff
+{
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
++   "lint": "eslint . --ext .ts --ext .tsx",
++   "lint:fix": "yarn lint --fix"
+  },
+}
+```
+
+Now you can run `yarn lint` to find problems in your code and run `yarn lint:fix` to fix the problems found.
 
 ## Prettier
 
