@@ -50,6 +50,8 @@ The next lines contain a set of questions and answers that reproduce the configu
 
 **Where does your code run?**
 
+> Browser
+
 > Node
 
 **How would you like to define a style for your project?**
