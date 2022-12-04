@@ -148,6 +148,14 @@ The rules below may be removed. Don't worry, they will be configured in the next
 }
 ```
 
+Put this line in the `eslintrc.json` file so that the `babel.config.ts` file is not parsed:
+
+```diff
+{
++  "ignorePatterns": ["babel.config.js"]
+}
+```
+
 To avoid import erros
 
 <img align="center" alt="import errors" style="max-width: 680px" src="docs/import-errors.png" /><br>
