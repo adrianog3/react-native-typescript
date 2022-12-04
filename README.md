@@ -370,3 +370,53 @@ The next step is create a `.prettierrc.json` file inside root folder:
 ```
 
 > Change the settings according to your need. See the [prettier options](https://prettier.io/docs/en/options.html) for more details.
+
+# React Native Dotenv
+
+It's common to change the behavior of applications according to the environment.
+
+In Node.js we can create [.env](https://nodejs.dev/en/learn/how-to-read-environment-variables-from-nodejs/) file to define the configuration properties. To make it work in React Native we must install the [react-native-dotenv](https://github.com/goatandsheep/react-native-dotenv) package.
+
+```bash
+yarn add -D react-native-dotenv @types/react-native-dotenv
+```
+
+After installation, update `babel.config.js` file as shown below:
+
+```diff
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: ["babel-preset-expo"],
++   plugins: [["module:react-native-dotenv"]],
+  };
+};
+```
+
+To import environment variables using an alias, create a file called `env.d.ts` inside root folder with the following content:
+
+```typescript
+declare module "@env" {
+  export const NODE_ENV: string;
+}
+```
+
+To avoid eslint errors add the following rule in the `eslintrc.json` file:
+
+```diff
+{
+  "rules": {
+    ...[other rules]
++   "import/no-unresolved": [2, { "ignore": ["@env"] }]
+  },
+}
+```
+
+Now you can import env variables as shown below:
+
+```typescript
+import { NODE_ENV } from "@env";
+```
+
+> **Note**
+> always remember to update the `env.d.ts` file when creating new environment variables.

@@ -1,10 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import { NODE_ENV } from "@env";
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
+      <Text>
+        Environment: <Text style={{ fontWeight: "bold" }}>{NODE_ENV}</Text>
+      </Text>
       <StatusBar />
     </View>
   );
