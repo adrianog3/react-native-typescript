@@ -34,7 +34,11 @@
       "ignorePackages",
       { "ts": "never", "tsx": "never" }
     ],
-    "import/no-unresolved": [2, { "ignore": ["@env"] }]
+    "import/no-unresolved": [2, { "ignore": ["@env", "miragejs"] }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["**/mocks/*.ts", "**/global.d.ts"] }
+    ]
   },
   "settings": {
     "import/resolver": {

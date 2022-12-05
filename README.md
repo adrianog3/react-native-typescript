@@ -420,3 +420,70 @@ import { NODE_ENV } from "@env";
 
 > **Note**
 > always remember to update the `env.d.ts` file when creating new environment variables.
+
+## Mirage JS
+
+> "[Mirage JS](https://miragejs.com/) is an API mocking library that lets you build, test and share a complete working JavaScript application without having to rely on any backend services."
+
+Run the following command to install the package:
+
+```bash
+yarn add --dev miragejs
+```
+
+Create file `src/mocks/mock_server.ts` with the following content:
+
+```typescript
+import { createServer } from "miragejs";
+import { NODE_ENV } from "@env";
+
+if (NODE_ENV === "development") {
+  window.server = createServer({
+    routes() {
+      // Mock of your routes here
+    },
+  });
+}
+```
+
+The previously created file must be modified with mock of your routes. See [official documentation](https://miragejs.com/quickstarts/react-native/development/) for more details.
+
+Create file `src/global.d.ts` to register the type of **window.server** global property.
+
+```typescript
+import { Registry, Server } from "miragejs";
+import { AnyFactories, AnyModels } from "miragejs/-types";
+
+export {};
+
+declare global {
+  interface Window {
+    server: Server<Registry<AnyModels, AnyFactories>>;
+  }
+}
+```
+
+Modify the `eslintrc.json` file to avoid import errors.
+
+```diff
+{
+  "rules": {
+    ...[other rules]
++   "import/no-unresolved": [2, { "ignore": ["@env", "miragejs"] }],
++   "import/no-extraneous-dependencies": [
++     "error",
++     { "devDependencies": ["**/mocks/*.ts", "**/global.d.ts"] }
++   ]
+  },
+}
+```
+
+Now, you can import `./src/mocks/mock_server` into the `App.tsx` file to make Mirage JS work.
+
+```diff
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { NODE_ENV } from "@env";
+
++import "./src/mocks/mock_server";
+```
