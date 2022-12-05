@@ -371,6 +371,48 @@ The next step is create a `.prettierrc.json` file inside root folder:
 
 > Change the settings according to your need. See the [prettier options](https://prettier.io/docs/en/options.html) for more details.
 
+## ESLint Plugin Import Helpers
+
+Manual grouping and sorting of imports is costly and often overlooked. To solve this problem in a gracefull and automatic way, we can install [eslint-plugin-import-helpers](https://github.com/Tibfib/eslint-plugin-import-helpers).
+
+```
+yarn add -D eslint-plugin-import-helpers
+```
+
+After installation modify the `eslintrc.json` file:
+
+```diff
+{
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "prettier",
++    "eslint-plugin-import-helpers"
+  ],
+  "rules": {
+    ...[other rules]
++   "import-helpers/order-imports": [
++     "warn",
++     {
++       "newlinesBetween": "always",
++       "groups": ["module", ["parent", "sibling", "index"]],
++       "alphabetize": { "order": "asc", "ignoreCase": true }
++     }
++   ]
++ },
+}
+```
+
+If you are using the VSCode, change de `settings.json` to automatic order imports when save the code.
+
+```diff
+{
++  "editor.codeActionsOnSave": {
++    "source.fixAll.eslint": true
++  }
+}
+```
+
 # React Native Dotenv
 
 It's common to change the behavior of applications according to the environment.

@@ -1,5 +1,5 @@
-import { createServer } from "miragejs";
 import { NODE_ENV } from "@env";
+import { createServer } from "miragejs";
 
 if (NODE_ENV === "development") {
   window.server = createServer({
